@@ -69,4 +69,7 @@ dependencies {
     //Navigation components
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
+    //Google Maps self location
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 }

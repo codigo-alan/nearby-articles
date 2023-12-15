@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -72,4 +73,5 @@ dependencies {
     //Google Maps self location
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
 }

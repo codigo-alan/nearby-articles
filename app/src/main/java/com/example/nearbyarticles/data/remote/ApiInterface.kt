@@ -11,12 +11,13 @@ import retrofit2.http.QueryMap
 
 interface ApiInterface {
 
-    @GET("?action=query&generator=geosearch&prop=coordinates%7Cpageimages&ggscoord=39.46975%7C-0.37739")
-    suspend fun getData(): retrofit2.Response<Data>
-    //suspend fun getData(@QueryMap filters: Map<String, String>): retrofit2.Response<Data> //Obtain data from api
+    /*@GET("?action=query&format=json&generator=geosearch&prop=coordinates%7Cpageimages&ggscoord=39.46975%7C-0.37739")
+    suspend fun getData(): retrofit2.Response<Data>*/
+    @GET("api.php")
+    suspend fun getData(@QueryMap filters: Map<String, String>): retrofit2.Response<Data> //Obtain data from api
     companion object {
 
-        private const val BASE_URL = "https://en.wikipedia.org/w/api.php/"
+        private const val BASE_URL = "https://en.wikipedia.org/w/"
         fun create(): ApiInterface {
             val client = OkHttpClient.Builder()
 

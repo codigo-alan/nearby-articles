@@ -1,10 +1,10 @@
 package com.example.nearbyarticles.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nearbyarticles.data.remote.RemoteDataSource
 import com.example.nearbyarticles.data.repository.Repository
 import com.example.nearbyarticles.domain.model.Item
 import com.google.android.gms.maps.model.LatLng
@@ -26,17 +26,19 @@ class ListViewModel : ViewModel() {
     private val _currentCoordinates = MutableLiveData<LatLng>()
     val currentCoordinates: LiveData<LatLng> = _currentCoordinates
 
-    init {
-        remoteFetchData()
-    }
 
-    private fun remoteFetchData() {
-        viewModelScope.launch {
+
+    fun remoteFetchData(coordinates: LatLng) {
+        /*viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.remoteDataSource.fetchData() //fetch data from repo
-                _items.postValue(repository.remoteDataSource.itemsRemote.value)
+                repository.remoteFetchData(coordinates) //fetch data from repo
+                _items.postValue(repository.itemsRepo.value)
+                Log.d("devApiVMItems", "${items.value}")
             }
-        }
+        }*/
+        repository.remoteFetchData(coordinates) //fetch data from repo
+        _items.postValue(repository.itemsRepo.value)
+        Log.d("devApiVMItems", "${items.value}")
     }
 
     fun setSelectedItem(clickedItem: Item){

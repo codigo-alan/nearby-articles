@@ -60,7 +60,7 @@ dependencies {
     //by viewModels extension for Fragments
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     //by viewModels extension for Activity
-    implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("androidx.activity:activity-ktx:1.8.2")
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -73,5 +73,5 @@ dependencies {
     //Google Maps self location
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
-    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
 }

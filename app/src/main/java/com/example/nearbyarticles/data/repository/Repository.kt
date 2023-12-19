@@ -18,6 +18,9 @@ class Repository(): RepositoryInterface {
     private var _itemsRepo = remoteDataSource.itemsRemote
     var itemsRepo: LiveData<List<Item>> = _itemsRepo
 
+    private var _successfulQuery = remoteDataSource.successfulQuery
+    val successfulQuery: LiveData<Boolean?> = _successfulQuery
+
     override fun remoteFetchData(coordinates: LatLng) {
         CoroutineScope(Dispatchers.IO).launch{
             remoteDataSource.fetchData(coordinates) //call remote repo to get data from api

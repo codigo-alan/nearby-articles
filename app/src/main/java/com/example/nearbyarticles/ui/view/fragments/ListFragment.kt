@@ -76,7 +76,6 @@ class ListFragment : Fragment(), OnClickListener {
             LocationServices.getFusedLocationProviderClient(requireActivity())
         getLocation()
 
-
         return binding.root
     }
 
@@ -100,11 +99,26 @@ class ListFragment : Fragment(), OnClickListener {
             adapter = itemAdapter
         }
 
+        restartVisibilities()
+
         model.items.observe(viewLifecycleOwner) {
             itemAdapter.setItems(it)
-            if (it.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
-            else binding.tvNoData.visibility = View.GONE
+            /*if (it.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
+            else binding.tvNoData.visibility = View.GONE*/
         }
+
+        //Handle views to show (Error, No data or List)
+        model.successfulQuery.observe(viewLifecycleOwner){
+
+            if (it == null) binding.tvLoading.visibility = View.VISIBLE
+            else{
+                binding.tvLoading.visibility = View.GONE
+                if (it && model.items.value!!.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
+                if (!it) binding.tvErrorData.visibility = View.VISIBLE
+            }
+
+        }
+
 
         model.currentCoordinates.observe(viewLifecycleOwner) {
             //Log.d("devCoordinates", "${model.currentCoordinates.value}")
@@ -117,6 +131,12 @@ class ListFragment : Fragment(), OnClickListener {
             //Log.d("devCoordinatesFab", "${model.currentCoordinates.value}")
         }
 
+    }
+
+    private fun restartVisibilities() {
+        binding.tvNoData.visibility = View.GONE
+        binding.tvErrorData.visibility = View.GONE
+        binding.tvLoading.visibility = View.GONE
     }
 
     override fun onClick(item: Item) {

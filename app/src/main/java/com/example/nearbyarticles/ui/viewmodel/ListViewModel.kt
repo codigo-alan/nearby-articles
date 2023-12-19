@@ -27,7 +27,8 @@ class ListViewModel : ViewModel() {
     private val _currentCoordinates = MutableLiveData<LatLng>()
     val currentCoordinates: LiveData<LatLng> = _currentCoordinates
 
-
+    private var _successfulQuery = repository.successfulQuery
+    val successfulQuery: LiveData<Boolean?> = _successfulQuery
 
     fun remoteFetchData(coordinates: LatLng) {
         /*viewModelScope.launch {

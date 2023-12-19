@@ -12,6 +12,9 @@ class RemoteDataSource {
 
     private var _itemsRemote = MutableLiveData<List<Item>>().apply { value = listOf() }
     var itemsRemote: LiveData<List<Item>> = _itemsRemote
+
+    private val _successfulQuery = MutableLiveData<Boolean?>().apply { value = null }
+    val successfulQuery: LiveData<Boolean?> = _successfulQuery
     suspend fun fetchData(coordinates: LatLng) {
 
         val filtersMap = mapOf(
@@ -31,13 +34,16 @@ class RemoteDataSource {
             val itemsList = mutableListOf<Item>()
             response.body()?.query?.items?.forEach { (itemId, item) -> itemsList += item }
             _itemsRemote.postValue(itemsList)
+            _successfulQuery.postValue(true)
             Log.d("devApiResponseItemsList", "${itemsList}")
             Log.d("devApiResponseItems", "${itemsRemote.value}")
         }
         else {
             _itemsRemote.postValue(listOf())
+            _successfulQuery.postValue(false)
             Log.d("devApiResponseFail", "${response.errorBody()}")
         }
+
     }
 
 }

@@ -9,9 +9,9 @@ import com.google.android.gms.maps.model.LatLng
 class RemoteDataSource {
 
     private val apiInterface = ApiInterface.create() //TODO Dagger Hilt inject
-    //var itemsRemote = MutableLiveData<List<Item>>().apply { listOf<Item>() }
-    private val _itemsRemote = MutableLiveData<List<Item>>().apply { value = listOf() }
-    val itemsRemote: LiveData<List<Item>> = _itemsRemote
+
+    private var _itemsRemote = MutableLiveData<List<Item>>().apply { value = listOf() }
+    var itemsRemote: LiveData<List<Item>> = _itemsRemote
     suspend fun fetchData(coordinates: LatLng) {
 
         val filtersMap = mapOf(
@@ -19,7 +19,7 @@ class RemoteDataSource {
             "format" to "json",
             "generator" to "geosearch",
             "prop" to "coordinates|pageimages",
-            "ggscoord" to "39.46975|-0.37739")
+            "ggscoord" to "${coordinates.latitude}|${coordinates.longitude}")
 
         Log.d("devMap", "${filtersMap["ggscoord"]}")
         //39.46975|-0.37739

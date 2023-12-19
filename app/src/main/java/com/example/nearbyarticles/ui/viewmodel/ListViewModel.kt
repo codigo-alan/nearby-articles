@@ -17,7 +17,8 @@ class ListViewModel : ViewModel() {
     //TODO inject repo with Dagger Hilt
     val repository = Repository()
 
-    private val _items = MutableLiveData<List<Item>>().apply { value = listOf() }
+    //private val _items = MutableLiveData<List<Item>>().apply { value = listOf() }
+    private val _items = repository.itemsRepo
     val items: LiveData<List<Item>> = _items
 
     private val _selectedItem = MutableLiveData<Item>()
@@ -37,7 +38,6 @@ class ListViewModel : ViewModel() {
             }
         }*/
         repository.remoteFetchData(coordinates) //fetch data from repo
-        _items.postValue(repository.itemsRepo.value)
         Log.d("devApiVMItems", "${items.value}")
     }
 

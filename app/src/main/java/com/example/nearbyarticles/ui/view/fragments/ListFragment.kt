@@ -17,6 +17,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import com.example.nearbyarticles.R
 import com.example.nearbyarticles.databinding.FragmentListBinding
 import com.example.nearbyarticles.domain.model.Item
@@ -100,7 +101,9 @@ class ListFragment : Fragment(), OnClickListener {
         }
 
         model.items.observe(viewLifecycleOwner) {
-            itemAdapter.setItems(it ?: listOf()) //TODO take out elvis
+            itemAdapter.setItems(it)
+            if (it.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
+            else binding.tvNoData.visibility = View.GONE
         }
 
         model.currentCoordinates.observe(viewLifecycleOwner) {

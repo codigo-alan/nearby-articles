@@ -38,10 +38,11 @@ class ItemAdapter (private var items: List<Item>, private val listener: OnClickL
             binding.tvName.text = item.title
 
             Glide.with(context)
-                .load(item.image ?: "")
+                .load(item.thumbnail?.source)
                 .diskCacheStrategy(DiskCacheStrategy.ALL) //save in cache to avoid unneeded resources consume
                 .centerCrop()
                 .circleCrop()
+                .error(R.drawable.baseline_broken_image_24)
                 .into(binding.ivImage) //put the image in te image view
 
         }

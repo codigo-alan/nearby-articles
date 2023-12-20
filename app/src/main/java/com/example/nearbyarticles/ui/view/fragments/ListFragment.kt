@@ -71,6 +71,8 @@ class ListFragment : Fragment(), OnClickListener {
         restartVisibilities()
 
         model.items.observe(viewLifecycleOwner) {
+            //calculate distances
+            model.calculateDistance()
             itemAdapter.setItems(it)
         }
         model.successfulQuery.observe(viewLifecycleOwner){
@@ -105,6 +107,7 @@ class ListFragment : Fragment(), OnClickListener {
 
                 val latitude: Double = coordinatesToSearch.first().toDouble()
                 val longitude: Double = coordinatesToSearch.last().toDouble()
+                model.setCurrentCoordinates(LatLng(latitude, longitude))
                 model.setCurrentSearch(LatLng(latitude, longitude))
                 model.remoteFetchData(LatLng(latitude, longitude))
             } catch (e: Exception) {

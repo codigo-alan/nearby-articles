@@ -7,4 +7,5 @@ data class Item(
     val title: String,
     val coordinates: List<CoordinateApi>,
     val thumbnail: Thumbnail?,
+    var distance: Double?,
 )

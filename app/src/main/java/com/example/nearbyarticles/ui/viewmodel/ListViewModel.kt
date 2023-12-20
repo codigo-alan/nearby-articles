@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nearbyarticles.data.repository.Repository
 import com.example.nearbyarticles.domain.model.Item
+import com.example.nearbyarticles.utils.haversine
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,6 +56,13 @@ class ListViewModel : ViewModel() {
 
     fun setCurrentSearch(newCoordinates: LatLng) {
         _currentSearch.postValue(newCoordinates)
+    }
+
+    fun calculateDistance() {
+        _items.value?.forEach { item ->
+            item.distance = haversine(_currentCoordinates.value!!,
+                LatLng(item.coordinates.first().lat, item.coordinates.first().lon))
+         }
     }
 
 }

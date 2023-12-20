@@ -22,7 +22,7 @@ class RemoteDataSource {
             "format" to "json",
             "generator" to "geosearch",
             "prop" to "coordinates|pageimages",
-            "ggscoord" to "39.46975|-0.37739")
+            "ggscoord" to "${coordinates.latitude}|${coordinates.longitude}")
 
         Log.d("devMap", "${filtersMap["ggscoord"]}")
         //39.46975|-0.37739

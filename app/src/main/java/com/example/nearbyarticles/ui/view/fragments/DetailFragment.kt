@@ -14,6 +14,7 @@ import com.example.nearbyarticles.R
 import com.example.nearbyarticles.databinding.FragmentDetailBinding
 import com.example.nearbyarticles.domain.model.Item
 import com.example.nearbyarticles.ui.viewmodel.ListViewModel
+import com.example.nearbyarticles.utils.limitLength
 
 
 class DetailFragment : Fragment() {
@@ -53,6 +54,9 @@ class DetailFragment : Fragment() {
 
         binding.tvLatitude.text = "latitude: ${item.coordinates.first().lat}"
         binding.tvLongitude.text = "longitude: ${item.coordinates.first().lon}"
+
+        binding.tvSelectedDistance.text =
+            "${item.distance.toString().limitLength(8, true)} Km"
 
         binding.toListButton.setOnClickListener {
             findNavController().navigate(R.id.action_detailFragment_to_listFragment)

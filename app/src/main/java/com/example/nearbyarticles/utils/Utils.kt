@@ -3,8 +3,9 @@ package com.example.nearbyarticles.utils
 import com.google.android.gms.maps.model.LatLng
 import kotlin.math.*
 
-fun String.limitLength(maxLength: Int): String {
-    return if (this.length > maxLength) "${this.substring(0, maxLength)}..."
+fun String.limitLength(maxLength: Int, formatNumber: Boolean = false): String {
+    return if (this.length > maxLength && !formatNumber) "${this.substring(0, maxLength)}..."
+    else if (this.length > maxLength) this.substring(0, maxLength)
     else this
 
 }

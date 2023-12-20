@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nearby articles</string>
     <string name="no_data">No data for this location</string>
     <string name="error_api">Error during data retrieval, please check your internet connection.</string>
     <string name="coordinates_hint">latitude,longitude</string>
-
 </resources>

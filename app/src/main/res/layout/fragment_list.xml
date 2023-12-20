@@ -35,16 +35,21 @@
         android:layout_margin="8dp"
         android:clickable="true"
         android:src="@drawable/baseline_autorenew_24"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerListItems"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/fabOwnSearch"
+        app:layout_constraintEnd_toStartOf="@+id/fabOwnSearch"
+        app:layout_constraintStart_toEndOf="@+id/tvCoordinates"
+        app:layout_constraintTop_toTopOf="@+id/fabOwnSearch"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/tvNoData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No data for this location"
+        android:text="@string/no_data"
         android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/dark_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:text="Error during data retrieval, please check your internet connection."
+        android:text="@string/error_api"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/dark_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,5 +80,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recyclerListItems" />
+
+    <EditText
+        android:id="@+id/etCoordinates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/coordinates_hint"
+        android:inputType="text|numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerListItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLoading" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOwnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/baseline_location_searching_24"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerListItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

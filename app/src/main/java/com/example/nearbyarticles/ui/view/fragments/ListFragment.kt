@@ -1,13 +1,11 @@
 package com.example.nearbyarticles.ui.view.fragments
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +14,6 @@ import android.Manifest
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.view.isVisible
 import com.example.nearbyarticles.R
 import com.example.nearbyarticles.databinding.FragmentListBinding
 import com.example.nearbyarticles.domain.model.Item
@@ -29,8 +25,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 
 
-const val REQUEST_CODE_LOCATION = 100
-
 class ListFragment : Fragment(), OnClickListener {
 
     private lateinit var binding: FragmentListBinding
@@ -40,30 +34,11 @@ class ListFragment : Fragment(), OnClickListener {
 
     //to obtain self location
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    //private lateinit var currentCoordinates: LatLng
-    //Request and check permissions
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { isGranted ->
             fetchRemoteData(!(isGranted.containsValue(false)))
-        }
-
-    @SuppressLint("MissingPermission")
-    private fun fetchRemoteData(isLocationGranted: Boolean) {
-        if (isLocationGranted) {
-            fusedLocationProviderClient.lastLocation.addOnCompleteListener {
-                val location = it.result
-                if (location != null) {
-                    //Log.d("devLocation", "$location")
-                    model.setCurrentCoordinates(LatLng(location.latitude, location.longitude))
-                    model.remoteFetchData(LatLng(location.latitude, location.longitude))
-                }
-            }
-        }else Toast.makeText(
-            requireContext(),
-            "Are necessary location permissions to use the features of the app",
-            Toast.LENGTH_SHORT).show()
-    }
-
+        }//Request and check permissions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,19 +49,13 @@ class ListFragment : Fragment(), OnClickListener {
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
-        getLocation()
+        if (model.currentSearch.value == null) getLocation()
+
 
         return binding.root
     }
 
-    private fun getLocation() {
-        val permissions = listOf<String>(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
-        requestPermissionLauncher.launch(permissions.toTypedArray()) //launch the request created in the top
-    }
-
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -103,34 +72,74 @@ class ListFragment : Fragment(), OnClickListener {
 
         model.items.observe(viewLifecycleOwner) {
             itemAdapter.setItems(it)
-            /*if (it.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
-            else binding.tvNoData.visibility = View.GONE*/
         }
-
-        //Handle views to show (Error, No data or List)
         model.successfulQuery.observe(viewLifecycleOwner){
 
             if (it == null) binding.tvLoading.visibility = View.VISIBLE
             else{
                 binding.tvLoading.visibility = View.GONE
                 if (it && model.items.value!!.isEmpty()) binding.tvNoData.visibility = View.VISIBLE
+                if (it && model.items.value!!.isNotEmpty()) binding.tvNoData.visibility = View.GONE
                 if (!it) binding.tvErrorData.visibility = View.VISIBLE
             }
 
-        }
-
-
+        }//Handle views to show (Error, No data or List)
         model.currentCoordinates.observe(viewLifecycleOwner) {
             //Log.d("devCoordinates", "${model.currentCoordinates.value}")
             binding.tvCoordinates.text =
                 "${model.currentCoordinates.value ?: "obtaining location..."}"
+            binding.etCoordinates.setText(
+                "${model.currentCoordinates.value?.latitude}," +
+                        "${model.currentCoordinates.value?.longitude}")
+        }
+        model.currentSearch.observe(viewLifecycleOwner){
+            binding.etCoordinates.setText(
+                "${model.currentSearch.value?.latitude}," +
+                        "${model.currentSearch.value?.longitude}")
         }
 
-        binding.fabNewSearch.setOnClickListener {
+        binding.fabOwnSearch.setOnClickListener {
             getLocation()
             //Log.d("devCoordinatesFab", "${model.currentCoordinates.value}")
         }
+        binding.fabNewSearch.setOnClickListener {
+            try {
+                val coordinatesToSearch = binding.etCoordinates.text.split(",")
 
+                val latitude: Double = coordinatesToSearch.first().toDouble()
+                val longitude: Double = coordinatesToSearch.last().toDouble()
+                model.setCurrentSearch(LatLng(latitude, longitude))
+                model.remoteFetchData(LatLng(latitude, longitude))
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Complete properly the coordinates field\n" +
+                        "'latitude,longitude'", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    private fun getLocation() {
+        val permissions = listOf<String>(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        requestPermissionLauncher.launch(permissions.toTypedArray()) //launch the request created in the top
+    }
+    @SuppressLint("MissingPermission")
+    private fun fetchRemoteData(isLocationGranted: Boolean) {
+        if (isLocationGranted) {
+            fusedLocationProviderClient.lastLocation.addOnCompleteListener {
+                val location = it.result
+                if (location != null) {
+                    //Log.d("devLocation", "$location")
+                    model.setCurrentCoordinates(LatLng(location.latitude, location.longitude))
+                    model.remoteFetchData(LatLng(location.latitude, location.longitude))
+                }
+            }
+        }else Toast.makeText(
+            requireContext(),
+            "Are necessary location permissions to use the features of the app",
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun restartVisibilities() {

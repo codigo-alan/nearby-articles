@@ -27,6 +27,9 @@ class ListViewModel : ViewModel() {
     private val _currentCoordinates = MutableLiveData<LatLng>()
     val currentCoordinates: LiveData<LatLng> = _currentCoordinates
 
+    private val _currentSearch = MutableLiveData<LatLng>()
+    val currentSearch: LiveData<LatLng> = _currentSearch
+
     private var _successfulQuery = repository.successfulQuery
     val successfulQuery: LiveData<Boolean?> = _successfulQuery
 
@@ -48,6 +51,10 @@ class ListViewModel : ViewModel() {
 
     fun setCurrentCoordinates(newCoordinates: LatLng){
         _currentCoordinates.postValue(newCoordinates)
+    }
+
+    fun setCurrentSearch(newCoordinates: LatLng) {
+        _currentSearch.postValue(newCoordinates)
     }
 
 }

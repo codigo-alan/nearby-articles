@@ -85,9 +85,6 @@ class ListFragment : Fragment(), OnClickListener {
 
         }//Handle views to show (Error, No data or List)
         model.currentCoordinates.observe(viewLifecycleOwner) {
-            //Log.d("devCoordinates", "${model.currentCoordinates.value}")
-            binding.tvCoordinates.text =
-                "${model.currentCoordinates.value ?: "obtaining location..."}"
             binding.etCoordinates.setText(
                 "${model.currentCoordinates.value?.latitude}," +
                         "${model.currentCoordinates.value?.longitude}")

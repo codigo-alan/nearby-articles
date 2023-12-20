@@ -12,34 +12,25 @@
         android:id="@+id/recyclerListItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fabNewSearch"
         tools:listitem="@layout/item"/>
 
-    <TextView
-        android:id="@+id/tvCoordinates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fabNewSearch"
-        app:layout_constraintBottom_toBottomOf="@id/fabNewSearch"
-        tools:text="Latitude: 00.0000 Longitude: 00.000" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/baseline_autorenew_24"
         app:layout_constraintBottom_toBottomOf="@+id/fabOwnSearch"
-        app:layout_constraintEnd_toStartOf="@+id/fabOwnSearch"
-        app:layout_constraintStart_toEndOf="@+id/tvCoordinates"
-        app:layout_constraintTop_toTopOf="@+id/fabOwnSearch"
-        android:focusable="true" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/fabOwnSearch" />
 
     <TextView
         android:id="@+id/tvNoData"
@@ -85,23 +76,40 @@
         android:id="@+id/etCoordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="32dp"
         android:hint="@string/coordinates_hint"
         android:inputType="text|numberDecimal"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerListItems"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/fabNewSearch"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLoading" />
+        app:layout_constraintTop_toTopOf="@id/fabNewSearch" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabOwnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/baseline_location_searching_24"
         app:layout_constraintBottom_toTopOf="@+id/recyclerListItems"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50121653" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

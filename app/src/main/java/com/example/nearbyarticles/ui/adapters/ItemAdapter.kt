@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.nearbyarticles.R
 import com.example.nearbyarticles.databinding.ItemBinding
 import com.example.nearbyarticles.domain.model.Item
@@ -33,7 +35,15 @@ class ItemAdapter (private var items: List<Item>, private val listener: OnClickL
         val item = items[position]
         with(holder){
             setListener(item)
-            binding.tvName.text = "${item.title}"
+            binding.tvName.text = item.title
+
+            Glide.with(context)
+                .load(item.image ?: "")
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //save in cache to avoid unneeded resources consume
+                .centerCrop()
+                .circleCrop()
+                .into(binding.ivImage) //put the image in te image view
+
         }
     }
 

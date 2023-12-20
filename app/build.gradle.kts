@@ -74,4 +74,6 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    //Glide to use images
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 }

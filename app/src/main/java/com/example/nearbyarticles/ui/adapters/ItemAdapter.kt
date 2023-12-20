@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.nearbyarticles.R
 import com.example.nearbyarticles.databinding.ItemBinding
 import com.example.nearbyarticles.domain.model.Item
+import com.example.nearbyarticles.utils.limitLength
 
 class ItemAdapter (private var items: List<Item>, private val listener: OnClickListener)
     : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
@@ -35,7 +36,7 @@ class ItemAdapter (private var items: List<Item>, private val listener: OnClickL
         val item = items[position]
         with(holder){
             setListener(item)
-            binding.tvName.text = item.title
+            binding.tvName.text = item.title.limitLength(25) //my created extension function
 
             Glide.with(context)
                 .load(item.thumbnail?.source)

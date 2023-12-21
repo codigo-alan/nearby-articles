@@ -10,10 +10,13 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class Repository(): RepositoryInterface {
+class Repository @Inject constructor(
+    override val remoteDataSource: RemoteDataSource)
+    : RepositoryInterface {
 
-    override val remoteDataSource = RemoteDataSource() //TODO inject Dagger Hilt
+    //override val remoteDataSource = RemoteDataSource() //TODO inject Dagger Hilt
 
     private var _itemsRepo = remoteDataSource.itemsRemote
     var itemsRepo: LiveData<List<Item>> = _itemsRepo
@@ -24,7 +27,6 @@ class Repository(): RepositoryInterface {
     override fun remoteFetchData(coordinates: LatLng) {
         CoroutineScope(Dispatchers.IO).launch{
             remoteDataSource.fetchData(coordinates) //call remote repo to get data from api
-            //_itemsRepo.postValue(remoteDataSource.itemsRemote.value)
             Log.d("devApiRepoItems", "${itemsRepo.value}")
         }
     }

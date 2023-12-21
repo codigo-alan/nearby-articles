@@ -23,8 +23,10 @@ import com.example.nearbyarticles.ui.viewmodel.ListViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ListFragment : Fragment(), OnClickListener {
 
     private lateinit var binding: FragmentListBinding
@@ -99,7 +101,6 @@ class ListFragment : Fragment(), OnClickListener {
 
         binding.fabOwnSearch.setOnClickListener {
             getLocation()
-            //Log.d("devCoordinatesFab", "${model.currentCoordinates.value}")
         }
         binding.fabNewSearch.setOnClickListener {
             try {
@@ -107,9 +108,11 @@ class ListFragment : Fragment(), OnClickListener {
 
                 val latitude: Double = coordinatesToSearch.first().toDouble()
                 val longitude: Double = coordinatesToSearch.last().toDouble()
-                model.setCurrentCoordinates(LatLng(latitude, longitude))
+
+                //model.setCurrentCoordinates(LatLng(latitude, longitude))
                 model.setCurrentSearch(LatLng(latitude, longitude))
                 model.remoteFetchData(LatLng(latitude, longitude))
+
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Complete properly the coordinates field\n" +
                         "'latitude,longitude'", Toast.LENGTH_SHORT).show()
@@ -131,7 +134,6 @@ class ListFragment : Fragment(), OnClickListener {
             fusedLocationProviderClient.lastLocation.addOnCompleteListener {
                 val location = it.result
                 if (location != null) {
-                    //Log.d("devLocation", "$location")
                     model.setCurrentCoordinates(LatLng(location.latitude, location.longitude))
                     model.remoteFetchData(LatLng(location.latitude, location.longitude))
                 }

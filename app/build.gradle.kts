@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    //id ("dagger.hilt.android.plugin")
 }
 
 android {
@@ -78,4 +80,12 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     //Card View
     implementation ("androidx.cardview:cardview:1.0.0")
+    //Dagger Hilt
+    implementation ("com.google.dagger:hilt-android:2.50")
+    kapt ("com.google.dagger:hilt-android-compiler:2.50")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

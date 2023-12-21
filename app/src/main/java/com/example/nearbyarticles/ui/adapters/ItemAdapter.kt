@@ -1,5 +1,6 @@
 package com.example.nearbyarticles.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,7 @@ class ItemAdapter (private var items: List<Item>, private val listener: OnClickL
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {
         val item = items[position]
 
@@ -53,6 +55,7 @@ class ItemAdapter (private var items: List<Item>, private val listener: OnClickL
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItems(newItemList: List<Item>) {
         items = newItemList
         notifyDataSetChanged()

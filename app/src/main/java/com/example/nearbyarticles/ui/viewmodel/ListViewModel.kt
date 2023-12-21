@@ -9,16 +9,20 @@ import com.example.nearbyarticles.data.repository.Repository
 import com.example.nearbyarticles.domain.model.Item
 import com.example.nearbyarticles.utils.haversine
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ListViewModel : ViewModel() {
+@HiltViewModel
+class ListViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 
     //TODO inject repo with Dagger Hilt
-    val repository = Repository()
+    //val repository = Repository()
 
-    //private val _items = MutableLiveData<List<Item>>().apply { value = listOf() }
     private val _items = repository.itemsRepo
     val items: LiveData<List<Item>> = _items
 
@@ -43,7 +47,6 @@ class ListViewModel : ViewModel() {
             }
         }*/
         repository.remoteFetchData(coordinates) //fetch data from repo
-        Log.d("devApiVMItems", "${items.value}")
     }
 
     fun setSelectedItem(clickedItem: Item){
@@ -60,8 +63,11 @@ class ListViewModel : ViewModel() {
 
     fun calculateDistance() {
         _items.value?.forEach { item ->
-            item.distance = haversine(_currentCoordinates.value!!,
-                LatLng(item.coordinates.first().lat, item.coordinates.first().lon))
+            item.distance = _currentCoordinates.value?.let {
+                haversine(
+                    it,
+                    LatLng(item.coordinates.first().lat, item.coordinates.first().lon))
+            }
          }
     }
 

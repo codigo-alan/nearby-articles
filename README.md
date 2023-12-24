@@ -79,16 +79,15 @@ If we need inject an interface or class of a third part library we will create a
 * @AndroidEntryPoint -> Tag to indicate activity like entry point of dependencies
 * @HiltViewModel -> Indicate view model like entry point of dependencies
 * @Inject constructor -> To prepare a normal class to be injected
-* Module object:
+* Module object:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Module -> Tag to indicate that will provide dependencies from inside of the object  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @InstallIn(scope of dependencies) -> Between parenthesis indicates the scope of the dependencies
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Provides -> Indicates that this function will be provided for the object module
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Singleton -> To only create an instance of this type of class
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @InstallIn(scope of dependencies) -> Between parenthesis indicates the scope of the dependencies  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Provides -> Indicates that this function will be provided for the object module  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Singleton -> To only create an instance of this type of class  
 
 ## Api 
 
 * Documentation → [Wikipedia Geosearch](https://www.mediawiki.org/wiki/API:Geosearch)
-* Example → [Wikipedia Geosearch example of query](https://en.wikipedia.org/w/api.php?action=query&generator=geosearch
-&prop=coordinates%7Cpageimages&ggscoord=39.46975%7C-0.37739)
+* Example → [Wikipedia Geosearch example of query](https://en.wikipedia.org/w/api.php?action=query&generator=geosearch&prop=coordinates%7Cpageimages&ggscoord=39.46975%7C-0.37739)
 
 

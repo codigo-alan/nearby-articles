@@ -1,4 +1,4 @@
-# Nearby articles with MVVM and Dagger Hilt ⌨ 📍 
+# Nearby articles with MVVM and Dagger Hilt ⌨ 📌 
 
 Project that shows a list of places of interest nearby from a current location or from an specified coordinates.
 Consumes the free API of Wikipedia. Immplemented with SOLID principles using DDD (Domain, Driven, Design) architecture, MVVM and Dependency injection.
@@ -71,7 +71,7 @@ The project is structured as follows:
 * 📚 Google Location - For location services of android devices
 * 📚 Glide - For handling images
 
-## Dependency injection with Dagger Hilt
+## Dependency injection with Dagger Hilt 📗
 
 It is necessary prepare activities and view models with a tag to be enable to inyect dependencies inside. And the classes that we need inject must be prepared to be injected with an @Inject constructor.  
 If we need inject an interface or class of a third part library we will create an object with tag @Module and prepare them in a function with @Provide tag.
@@ -81,7 +81,7 @@ If we need inject an interface or class of a third part library we will create a
 * @Inject constructor -> To prepare a normal class to be injected
 * Module object:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Module -> Tag to indicate that will provide dependencies from inside of the object  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @InstallIn(scope of dependencies) -> Between parenthesis indicates the scope of the dependencies  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @InstallIn(scope of dependencies) -> Between parentheses indicates the scope of the dependencies  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Provides -> Indicates that this function will be provided for the object module  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Singleton -> To only create an instance of this type of class  
 

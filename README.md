@@ -1,4 +1,4 @@
-# Nearby articles with MVVM and Dagger Hilt ⌨ 📌 
+# Nearby articles with MVVM and Dagger Hilt 📱 📌 
 
 Project that shows a list of places of interest nearby from a current location or from an specified coordinates.
 Consumes the free API of Wikipedia. Immplemented with SOLID principles using DDD (Domain, Driven, Design) architecture, MVVM and Dependency injection.
@@ -15,7 +15,7 @@ Consumes the free API of Wikipedia. Immplemented with SOLID principles using DDD
 
 To run the application in your local machine you need to download this project and execute it in Android Studio or another IDE compatible with Android developments.
 
-### Using the app
+### Using the app 📲
 
 On the first run of the app, location permissions will be requested. Places near the current device location will be loaded 📍  
 If location is not accepted, the app can only be used by manually entering the desired coordinates, and places near the specified coordinates will be showed 
@@ -79,7 +79,7 @@ If we need inject an interface or class of a third part library we will create a
 * @AndroidEntryPoint -> Tag to indicate activity like entry point of dependencies
 * @HiltViewModel -> Indicate view model like entry point of dependencies
 * @Inject constructor -> To prepare a normal class to be injected
-* Module object:  
+* Module object: 🔨    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Module -> Tag to indicate that will provide dependencies from inside of the object  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @InstallIn(scope of dependencies) -> Between parentheses indicates the scope of the dependencies  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Provides -> Indicates that this function will be provided for the object module  
